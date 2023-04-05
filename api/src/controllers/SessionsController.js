@@ -1,6 +1,8 @@
 const sqliteConnection = require('../database/sqlite');
 const AppError = require('../utils/AppError');
+const authConfig = require('../configs/auth');
 const { compare } = require('bcryptjs');
+const { sign } = require('jsonwebtoken');
 
 class SessionsController {
   async create(request, response) {
