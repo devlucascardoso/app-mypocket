@@ -1,0 +1,26 @@
+const sqliteConnection = require('../database/sqlite');
+const AppError = require('../utils/AppError');
+const { compare } = require('bcryptjs');
+
+class SessionsController {
+  async create(request, response) {
+    const { email, password } = request.body;
+
+    const database = await sqliteConnection();
+
+    const user = await database.get('SELECT * FROM users WHERE email = ?', email);
+
+    if (!user) {
+      throw new AppError('Email e/ou senha incorreta', 401);
+    }
+
+    const passwordMatch = await compare(password, user.password);
+
+    if (!passwordMatch) {
+      throw new AppError('Email e/ou senha incorreta', 401);
+    }
+    return response.json(user);
+  }
+}
+
+module.exports = SessionsController;
