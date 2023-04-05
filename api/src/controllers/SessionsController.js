@@ -19,7 +19,14 @@ class SessionsController {
     if (!passwordMatch) {
       throw new AppError('Email e/ou senha incorreta', 401);
     }
-    return response.json(user);
+    
+    const { secret, expiresIn } = authConfig.jwt
+    const token = sign({}, secret, {
+      subject: String(user.id),
+      expiresIn
+    })
+
+    return response.json({ user, token })
   }
 }
 

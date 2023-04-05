@@ -3,7 +3,7 @@ const sqliteConnection = require('../database/sqlite')
 class NotesController {
   async create(request, response) {
     const { title, descriptions, tags, links } = request.body
-    const { user_id } = request.params
+    const user_id = request.user.id;
 
     const database = await sqliteConnection()
     const note_id = await database.run(
@@ -72,10 +72,13 @@ class NotesController {
   }
 
   async index(request, response) {
-    const { title, user_id, tags } = request.query
-
+    const { title, tags } = request.query;
+    
+    const user_id = request.user.id;
+    
+    let notes;
+    
     const database = await sqliteConnection()
-    let notes
 
     if (tags) {
       const filterTags = tags.split(',').map(tag => tag.trim())
