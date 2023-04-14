@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS tags (
   user_id INTEGER REFERENCES users(id)
 );
 `
-  
-module.exports = createTags;
+
+module.exports = createTags

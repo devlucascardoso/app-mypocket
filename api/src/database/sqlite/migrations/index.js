@@ -1,21 +1,21 @@
-const sqliteConnection = require('../../sqlite');
+const sqliteConnection = require('../../sqlite')
 
-const createUsers = require('./createUsers');
-const createNotes = require('./createNotes');
-const createTags = require('./createTags');
-const createLinks = require('./createLinks');
+const createUsers = require('./createUsers')
+const createNotes = require('./createNotes')
+const createTags = require('./createTags')
+const createLinks = require('./createLinks')
 
-async function migrationsRun() {
+async function migrationsRun () {
   const schemas = [
     createUsers,
     createNotes,
     createTags,
     createLinks
-  ].join(';');
+  ].join(';')
 
   sqliteConnection()
     .then(db => db.exec(schemas))
-    .catch(error => console.error(error));
+    .catch(error => console.error(error))
 }
 
-module.exports = migrationsRun;
+module.exports = migrationsRun

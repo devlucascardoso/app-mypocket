@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
-`;
+`
 
-module.exports = createUsers;
+module.exports = createUsers

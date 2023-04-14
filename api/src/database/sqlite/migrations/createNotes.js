@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS notes(
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 `
-module.exports = createNotes;
+module.exports = createNotes

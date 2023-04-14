@@ -1,13 +1,13 @@
 const sqliteConnection = require('../database/sqlite')
 
 class NotesController {
-  async create(request, response) {
+  async create (request, response) {
     const { title, descriptions, tags, links } = request.body
-    const user_id = request.user.id;
+    const user_id = request.user.id
 
     const database = await sqliteConnection()
     const note_id = await database.run(
-      `INSERT INTO notes (title, descriptions, user_id) VALUES (?, ?, ?)`,
+      'INSERT INTO notes (title, descriptions, user_id) VALUES (?, ?, ?)',
       [title, descriptions, user_id]
     )
 
@@ -20,7 +20,7 @@ class NotesController {
 
     const linksPromises = linksInsert.map(link => {
       return database.run(
-        `INSERT INTO links (note_id, url) VALUES (?, ?)`,
+        'INSERT INTO links (note_id, url) VALUES (?, ?)',
         [link.note_id, link.url]
       )
     })
@@ -37,7 +37,7 @@ class NotesController {
 
     const tagsPromises = tagsInsert.map(tag => {
       return database.run(
-        `INSERT INTO tags (note_id, name, user_id) VALUES (?, ?, ?)`,
+        'INSERT INTO tags (note_id, name, user_id) VALUES (?, ?, ?)',
         [tag.note_id, tag.name, tag.user_id]
       )
     })
@@ -47,13 +47,13 @@ class NotesController {
     response.json()
   }
 
-  async show(request, response) {
+  async show (request, response) {
     const { id } = request.params
 
     const database = await sqliteConnection()
-    const note = await database.get(`SELECT * FROM notes WHERE id = ?`, [id])
-    const tags = await database.all(`SELECT * FROM tags WHERE note_id = ? ORDER BY name`, [id])
-    const links = await database.all(`SELECT * FROM links WHERE note_id = ? ORDER BY created_at`, [id])
+    const note = await database.get('SELECT * FROM notes WHERE id = ?', [id])
+    const tags = await database.all('SELECT * FROM tags WHERE note_id = ? ORDER BY name', [id])
+    const links = await database.all('SELECT * FROM links WHERE note_id = ? ORDER BY created_at', [id])
 
     return response.json({
       ...note,
@@ -62,22 +62,22 @@ class NotesController {
     })
   }
 
-  async delete(request, response) {
+  async delete (request, response) {
     const { id } = request.params
 
     const database = await sqliteConnection()
-    await database.run(`DELETE FROM notes WHERE id = ?`, [id])
+    await database.run('DELETE FROM notes WHERE id = ?', [id])
 
     return response.json()
   }
 
-  async index(request, response) {
-    const { title, tags } = request.query;
-    
-    const user_id = request.user.id;
-    
-    let notes;
-    
+  async index (request, response) {
+    const { title, tags } = request.query
+
+    const user_id = request.user.id
+
+    let notes
+
     const database = await sqliteConnection()
 
     if (tags) {
@@ -95,12 +95,12 @@ class NotesController {
       )
     } else {
       notes = await database.all(
-        `SELECT * FROM notes WHERE user_id = ? AND title LIKE ? ORDER BY title`,
+        'SELECT * FROM notes WHERE user_id = ? AND title LIKE ? ORDER BY title',
         [user_id, `%${title}%`]
       )
     }
 
-    const userTags = await database.all(`SELECT * FROM tags WHERE user_id = ?`, [user_id])
+    const userTags = await database.all('SELECT * FROM tags WHERE user_id = ?', [user_id])
     const notesWithTags = notes.map(note => {
       const noteTags = userTags.filter(tag => tag.note_id === note.id)
 
