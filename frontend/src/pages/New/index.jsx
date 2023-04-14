@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '../../service/api'
 import Swal from 'sweetalert2'
 
-export function New() {
+export function New () {
   const [title, setTitle] = useState('')
   const [descriptions, setDescription] = useState('')
 
@@ -23,29 +23,29 @@ export function New() {
 
   const navigate = useNavigate()
 
-  function handleBack() {
+  function handleBack () {
     navigate(-1)
   }
 
-  function handleAddLink() {
+  function handleAddLink () {
     setLinks(prevState => [...prevState, newLink])
     setNewLink('')
   }
 
-  function handleRemoveLink(linkDeleted) {
+  function handleRemoveLink (linkDeleted) {
     setLinks(prevState => prevState.filter(link => link !== linkDeleted))
   }
 
-  function handleAddTag() {
+  function handleAddTag () {
     setTags(prevState => [...prevState, newTag])
     setNewTag('')
   }
 
-  function handleRemoveTag(tagDeleted) {
+  function handleRemoveTag (tagDeleted) {
     setTags(prevState => prevState.filter(tag => tag !== tagDeleted))
   }
 
-  async function handleNewNote() {
+  async function handleNewNote () {
     if (!title) {
       return Swal.fire({
         icon: 'error',
@@ -112,19 +112,19 @@ export function New() {
         <Form>
           <header>
             <h1>Criar Nota</h1>
-            <ButtonText title="Voltar" onClick={handleBack}></ButtonText>
+            <ButtonText title='Voltar' onClick={handleBack} />
           </header>
 
           <Input
-            placeholder="Título"
+            placeholder='Título'
             onChange={e => setTitle(e.target.value)}
-          ></Input>
+          />
           <Textarea
-            placeholder="Observações"
+            placeholder='Observações'
             onChange={e => setDescription(e.target.value)}
           />
 
-          <Section title="Links Úteis">
+          <Section title='Links Úteis'>
             {links.map((link, i) => (
               <NoteItem
                 key={String(i)}
@@ -134,15 +134,15 @@ export function New() {
             ))}
             <NoteItem
               isNew
-              placeholder="Novo Link"
+              placeholder='Novo Link'
               value={newLink}
               onChange={e => setNewLink(e.target.value)}
               onClick={handleAddLink}
             />
           </Section>
 
-          <Section title="Marcadores">
-            <div className="tags">
+          <Section title='Marcadores'>
+            <div className='tags'>
               {tags.map((tag, i) => (
                 <NoteItem
                   key={String(i)}
@@ -152,7 +152,7 @@ export function New() {
               ))}
               <NoteItem
                 isNew
-                placeholder="Nova Tag"
+                placeholder='Nova Tag'
                 onChange={e => setNewTag(e.target.value)}
                 value={newTag}
                 onClick={handleAddTag}
@@ -160,7 +160,7 @@ export function New() {
             </div>
           </Section>
 
-          <Button title="Salvar" onClick={handleNewNote} />
+          <Button title='Salvar' onClick={handleNewNote} />
         </Form>
       </main>
     </Container>

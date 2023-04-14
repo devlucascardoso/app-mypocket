@@ -7,13 +7,13 @@ import { FiMail, FiLock } from 'react-icons/fi'
 
 import { useAuth } from '../../hooks/auth'
 
-export function SignIn() {
+export function SignIn () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const { signIn } = useAuth()
 
-  function handleSignIn() {
+  function handleSignIn () {
     signIn({ email, password })
   }
 
@@ -24,19 +24,19 @@ export function SignIn() {
         <p>Aplicação para salvar e gerenciar seus links úteis.</p>
         <h2>Faça seu login</h2>
         <Input
-          placeholder="E-mail"
-          type="text"
+          placeholder='E-mail'
+          type='text'
           icon={FiMail}
           onChange={e => setEmail(e.target.value)}
-        ></Input>
+        />
         <Input
-          placeholder="Senha"
-          type="password"
+          placeholder='Senha'
+          type='password'
           icon={FiLock}
           onChange={e => setPassword(e.target.value)}
-        ></Input>
-        <Button title="Entrar" onClick={handleSignIn}></Button>
-        <Link to="/register">Criar Conta</Link>
+        />
+        <Button title='Entrar' onClick={handleSignIn} />
+        <Link to='/register'>Criar Conta</Link>
       </Form>
       <Background />
     </Container>

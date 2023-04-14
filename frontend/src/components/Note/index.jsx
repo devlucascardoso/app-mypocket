@@ -1,7 +1,7 @@
 import { Container } from './styles'
 import { Tag } from '../Tags'
 
-export function Note({ data, ...rest }) {
+export function Note ({ data, ...rest }) {
   return (
     <Container {...rest}>
       <h1>{data.title}</h1>

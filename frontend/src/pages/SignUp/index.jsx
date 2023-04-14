@@ -7,14 +7,14 @@ import { api } from '../../service/api'
 import { FiUser, FiMail, FiLock } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 
-export function SignUp() {
+export function SignUp () {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
 
-  function handleSignUp() {
+  function handleSignUp () {
     if (!name || !email || !password) {
       return Swal.fire({
         icon: 'error',
@@ -23,7 +23,7 @@ export function SignUp() {
       })
     }
 
-    let regex =
+    const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     api
 
@@ -71,26 +71,26 @@ export function SignUp() {
         <p>Aplicação para salvar e gerenciar seus links úteis.</p>
         <h2>Crie Sua Conta</h2>
         <Input
-          placeholder="Nome"
-          type="text"
+          placeholder='Nome'
+          type='text'
           icon={FiUser}
           onChange={e => setName(e.target.value)}
-        ></Input>
+        />
         <Input
-          placeholder="E-mail"
-          type="text"
+          placeholder='E-mail'
+          type='text'
           icon={FiMail}
           onChange={e => setEmail(e.target.value)}
-        ></Input>
+        />
         <Input
-          placeholder="Senha"
-          type="password"
+          placeholder='Senha'
+          type='password'
           icon={FiLock}
           onChange={e => setPassword(e.target.value)}
-        ></Input>
+        />
 
-        <Button title="Cadastrar" onClick={handleSignUp} />
-        <Link to="/">Voltar para o login</Link>
+        <Button title='Cadastrar' onClick={handleSignUp} />
+        <Link to='/'>Voltar para o login</Link>
       </Form>
     </Container>
   )

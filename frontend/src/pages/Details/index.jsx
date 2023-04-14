@@ -9,17 +9,17 @@ import { useState, useEffect } from 'react'
 import { api } from '../../service/api'
 import Swal from 'sweetalert2'
 
-export function Details() {
+export function Details () {
   const [data, setData] = useState(null)
   const params = useParams()
   const navigate = useNavigate()
 
-  function handleBack() {
+  function handleBack () {
     navigate(-1)
   }
 
-  async function handleRemove() {
-    async function remove() {
+  async function handleRemove () {
+    async function remove () {
       await api.delete(`/notes/${params.id}`)
     }
 
@@ -46,7 +46,7 @@ export function Details() {
   }
 
   useEffect(() => {
-    async function fetchNote() {
+    async function fetchNote () {
       const response = await api.get(`/notes/${params.id}`)
       setData(response.data)
     }
@@ -61,19 +61,19 @@ export function Details() {
         {data && (
           <Content>
             <ButtonText
-              title="Excluir Nota"
+              title='Excluir Nota'
               onClick={handleRemove}
-            ></ButtonText>
+            />
 
             <h1>{data.title}</h1>
             <p>{data.descriptions}</p>
 
             {data.links && (
-              <Section title="Links Úteis">
+              <Section title='Links Úteis'>
                 <Links>
                   {data.links.map(link => (
                     <li key={String(link.id)}>
-                      <a href={link.url} target="_blank">
+                      <a href={link.url} target='_blank' rel='noreferrer'>
                         {link.url}
                       </a>
                     </li>
@@ -83,13 +83,13 @@ export function Details() {
             )}
 
             {data.tags && (
-              <Section title="Marcadores">
+              <Section title='Marcadores'>
                 {data.tags.map(tag => (
-                  <Tag key={String(tag.id)} title={tag.name}></Tag>
+                  <Tag key={String(tag.id)} title={tag.name} />
                 ))}
               </Section>
             )}
-            <Button title="Voltar" onClick={handleBack} />
+            <Button title='Voltar' onClick={handleBack} />
           </Content>
         )}
       </main>

@@ -9,7 +9,7 @@ import { FiPlus } from 'react-icons/fi'
 import { api } from '../../service/api'
 import { useNavigate } from 'react-router-dom'
 
-export function Home() {
+export function Home () {
   const [tags, setTags] = useState([])
   const [tagsSelected, setTagsSelected] = useState([])
   const [search, setSearch] = useState('')
@@ -17,7 +17,7 @@ export function Home() {
 
   const navigate = useNavigate()
 
-  function handleTagSelected(tagName) {
+  function handleTagSelected (tagName) {
     if (tagName === 'all') {
       return setTagsSelected([])
     }
@@ -32,12 +32,12 @@ export function Home() {
     }
   }
 
-  function handleDetails(id) {
+  function handleDetails (id) {
     navigate(`/details/${id}`)
   }
 
   useEffect(() => {
-    async function fetchTags() {
+    async function fetchTags () {
       const response = await api.get('/tags')
       setTags(response.data)
     }
@@ -46,7 +46,7 @@ export function Home() {
   }, [])
 
   useEffect(() => {
-    async function fetchNotes() {
+    async function fetchNotes () {
       const response = await api.get(
         `/notes?title=${search}&tags=${tagsSelected}`
       )
@@ -65,10 +65,10 @@ export function Home() {
       <Menu>
         <li>
           <ButtonText
-            title="Todos"
+            title='Todos'
             onClick={() => handleTagSelected('all')}
             isActive={tagsSelected.length === 0}
-          ></ButtonText>
+          />
         </li>
         {tags &&
           tags.map(tag => (
@@ -77,20 +77,20 @@ export function Home() {
                 title={tag.name}
                 onClick={() => handleTagSelected(tag.name)}
                 isActive={tagsSelected.includes(tag.name)}
-              ></ButtonText>
+              />
             </li>
           ))}
       </Menu>
 
       <Search>
         <Input
-          placeholder="Pesquisar pelo título"
+          placeholder='Pesquisar pelo título'
           onChange={e => setSearch(e.target.value)}
         />
       </Search>
 
       <Content>
-        <Section title="Minhas Notas">
+        <Section title='Minhas Notas'>
           {notes.map(note => (
             <Note
               key={String(note.id)}
@@ -101,7 +101,7 @@ export function Home() {
         </Section>
       </Content>
 
-      <NewNote to="/new">
+      <NewNote to='/new'>
         <FiPlus />
         Criar Nota
       </NewNote>

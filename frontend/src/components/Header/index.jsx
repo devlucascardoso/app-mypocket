@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/auth'
 import avatarPlaceholder from '../../assets/avatar_placeholder.svg'
 import { api } from '../../service/api'
 
-export function Header() {
+export function Header () {
   const { user, signOut } = useAuth()
 
   const avatarUrl = user.avatar
@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <Container>
-      <Profile to="/profile">
+      <Profile to='/profile'>
         <img src={avatarUrl} alt={user.name} />
         <div>
           <span>Bem-vindo</span>

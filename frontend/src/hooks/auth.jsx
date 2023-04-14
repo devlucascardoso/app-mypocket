@@ -4,10 +4,10 @@ import Swal from 'sweetalert2'
 
 export const AuthContext = createContext({})
 
-function AuthProvider({ children }) {
+function AuthProvider ({ children }) {
   const [data, setData] = useState({})
 
-  async function signIn({ email, password }) {
+  async function signIn ({ email, password }) {
     try {
       const response = await api.post('/sessions', {
         email,
@@ -18,7 +18,7 @@ function AuthProvider({ children }) {
       localStorage.setItem('@rocketnotes:user', JSON.stringify(user))
       localStorage.setItem('@rocketnotes:token', token)
 
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
 
       setData({ user, token })
     } catch (error) {
@@ -38,14 +38,14 @@ function AuthProvider({ children }) {
     }
   }
 
-  function signOut() {
+  function signOut () {
     localStorage.removeItem('@rocketnotes:token')
     localStorage.removeItem('@rocketnotes:user')
 
     setData({})
   }
 
-  async function updateProfile({ user, avatarFile }) {
+  async function updateProfile ({ user, avatarFile }) {
     try {
       if (avatarFile) {
         const fileUploadForm = new FormData()
@@ -90,7 +90,7 @@ function AuthProvider({ children }) {
     const user = localStorage.getItem('@rocketnotes:user')
 
     if (token && user) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
 
       setData({ token, user: JSON.parse(user) })
     }
@@ -110,7 +110,7 @@ function AuthProvider({ children }) {
   )
 }
 
-function useAuth() {
+function useAuth () {
   const context = useContext(AuthContext)
 
   return context
