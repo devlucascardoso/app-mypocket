@@ -13,13 +13,13 @@ class SessionsController {
     const user = await database.get('SELECT * FROM users WHERE email = ?', email)
 
     if (!user) {
-      throw new AppError('Email e/ou senha incorreta', 401)
+      throw new AppError('Email or Password incorrect', 401)
     }
 
-    const passwordMatch = await compare(password, user.password)
+    const matchPassword = await compare(password, user.password)
 
-    if (!passwordMatch) {
-      throw new AppError('Email e/ou senha incorreta', 401)
+    if (!matchPassword) {
+      throw new AppError('Email or Password incorrect', 401)
     }
 
     const { secret, expiresIn } = authConfig.jwt
