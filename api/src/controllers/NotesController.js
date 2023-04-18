@@ -68,16 +68,13 @@ class NotesController {
     const database = await sqliteConnection()
     await database.run('DELETE FROM notes WHERE id = ?', [id])
 
-    return response.json()
+    return response.json({ message: 'Note delete completed' })
   }
 
   async index (request, response) {
     const { title, tags } = request.query
-
     const user_id = request.user.id
-
     let notes
-
     const database = await sqliteConnection()
 
     if (tags) {
