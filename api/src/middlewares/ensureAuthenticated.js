@@ -2,11 +2,11 @@ const { verify } = require('jsonwebtoken')
 const AppError = require('../utils/AppError')
 const authConfig = require('../configs/auth')
 
-function ensureAuthenticated (req, res, next) {
-  const authHeader = req.headers.authorization
+function ensureAuthenticated (request, response, next) {
+  const authHeader = request.headers.authorization
 
   if (!authHeader) {
-    throw new AppError('JWT Token inválido', 401)
+    throw new AppError('JWT not found', 401)
   }
 
   const [, token] = authHeader.split(' ')
@@ -20,7 +20,7 @@ function ensureAuthenticated (req, res, next) {
 
     return next()
   } catch {
-    throw new AppError('JWT Token inválido', 401)
+    throw new AppError('JWT Token Invalid', 401)
   }
 }
 
