@@ -19,7 +19,7 @@ class UsersController {
       [name, email, hashedPassword]
     )
 
-    return response.status(201).json('Usuário criado com sucesso!')
+    return response.status(201).json({ message: 'User created' })
   }
 
   async update (request, response) {
@@ -33,7 +33,7 @@ class UsersController {
 
     const userWithUpdateEmail = await database.get('SELECT * FROM users WHERE email = (?)', [email])
 
-    if (userWithUpdateEmail && userWithUpdateEmail.id !== id) {
+    if (userWithUpdateEmail && userWithUpdateEmail.id !== user_id) {
       throw new AppError('Este email já está em uso.')
     }
 
