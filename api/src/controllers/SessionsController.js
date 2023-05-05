@@ -1,16 +1,14 @@
-const sqliteConnection = require('../database/sqlite')
+const knex = require('../database/knex')
 const AppError = require('../utils/AppError')
-const authConfig = require('../configs/auth')
 const { compare } = require('bcryptjs')
+const authConfig = require('../configs/auth')
 const { sign } = require('jsonwebtoken')
 
 class SessionsController {
   async create (request, response) {
     const { email, password } = request.body
 
-    const database = await sqliteConnection()
-
-    const user = await database.get('SELECT * FROM users WHERE email = ?', email)
+    const user = await knex('users').where({ email }).first()
 
     if (!user) {
       throw new AppError('Email or Password incorrect', 401)
